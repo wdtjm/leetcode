@@ -22,18 +22,19 @@ def pop():
     h[1] = h[length]
     length -= 1
     p = 1
-    while not (p*2 > length or (h[p] < h[p*2] and h[p] < h[p*2 + 1 if p*2 + 1 <= length else p * 2] )):
-        if p*2 == length:
-            swap_p = p * 2
+    while True:
+        smallest = p
+        if p*2 <= length and h[smallest] > h[p*2]:
+            smallest = p*2
+        if p*2 + 1 <= length and h[smallest] > h[p*2 + 1]:
+            smallest = p*2 + 1
+        if smallest == p:
+            break
         else:
-            if h[p*2] > h[p*2 + 1]:
-                swap_p = p*2 + 1
-            else:
-                swap_p = p*2
-        t = h[swap_p]
-        h[swap_p] = h[p]
-        h[p] = t
-        p = swap_p
+            t = h[smallest]
+            h[smallest] = h[p]
+            h[p] = t
+            p = smallest
     return min
 
 
